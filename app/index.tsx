@@ -1,5 +1,6 @@
 import { router, Stack } from "expo-router";
-import { FlatList, Image, Pressable, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
+import { GameCard } from "../src/components/GameCard";
 import { games } from "../src/data/games";
 export default function Index() {
   return (
@@ -10,30 +11,15 @@ export default function Index() {
         keyExtractor={(game) => game.id}
         contentContainerStyle={{ padding: 16 }}
         renderItem={({ item: game }) => (
-          <Pressable
+          <GameCard
+            game={game}
             onPress={() =>
               router.push({
                 pathname: "/game-webview",
                 params: { url: game.url, title: game.title },
               })
             }
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              padding: 10,
-              gap: 12,
-            }}
-            accessibilityRole="button"
-            accessibilityLabel={`Play ${game.title}`}
-          >
-            <Image
-              source={game.image}
-              style={{ width: 60, height: 60, borderRadius: 8 }}
-            />
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {game.title}
-            </Text>
-          </Pressable>
+          />
         )}
       />
     </View>

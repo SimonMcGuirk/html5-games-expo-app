@@ -1,50 +1,107 @@
-# Welcome to your Expo app 👋
+# HTML5 Games Expo App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A small React Native app built with **Expo + TypeScript** that displays
+a list of HTML5 games and launches them in a full-screen WebView.
 
-## Get started
+---
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- Displays a list of games with image and title\
+- Tap a game to open it in a WebView\
+- Dynamic navigation titles using Expo Router\
+- Basic accessibility support (`accessibilityRole`, labels)
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Games Used
 
-In the output, you'll find options to open the app in a
+The app currently includes the following HTML5 games from Famobi:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Cut The Rope 2\
+- Gold Mine\
+- Pengu Slide\
+- Om Nom Run\
+- Parking Panic\
+- Traffic Tom
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Each game opens inside the app rather than an external browser.
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## Tech Stack
+
+- Expo\
+- React Native\
+- TypeScript\
+- react-native-webview
+
+---
+
+## Running the Project
+
+1.  Install dependencies
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2.  Start the app
 
-## Learn more
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Project Structure
 
-## Join the community
+    app/
+     ├── index.tsx           # Games list screen
+     └── game-webview.tsx    # WebView screen
 
-Join our community of developers creating universal apps.
+    src/
+     ├── components/
+     │   └── GameCard.tsx    # Reusable game list item
+     ├── data/
+     │   └── games.ts        # Game definitions
+     ├── assets/
+     │   └── images/         # Local thumbnails
+     └── types/
+         └── Game.ts
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## Design Decisions
+
+- **FlatList** used for performance and scalability rather than
+  mapping directly in JSX\
+- **GameCard component** extracts row UI for better separation of
+  concerns\
+- Local image assets bundled with the app for consistent offline
+  thumbnails\
+
+---
+
+## Accessibility
+
+- Each game row uses `accessibilityRole="button"`\
+- Descriptive labels such as "Play Cut The Rope 2"\
+- WebView labelled with current game title
+
+---
+
+## Data Approach
+
+- Strongly typed `Game` model\
+- Local image references via `require()`\
+- Screen receives only the URL and title via route params\
+- Simple static data source suitable for extension to API later
+
+---
+
+## Possible Improvements
+
+- Add **Favourites / My Games** list with persistence (AsyncStorage)\
+- Search or filter games\
+- Error handling if a game fails to load\
